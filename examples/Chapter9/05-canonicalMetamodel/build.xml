@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project name="example" default="generateAndCompile">
+ 
+    <property file="../../../config/common.properties"/>
+    <import file="../../../config/common.xml" />
+
+    <path id="processor.jars">
+      <pathelement location="../../../lib/org.eclipse.persistence.jpa.modelgen.processor.jar"/>
+    </path>
+
+    <target name="setup_compile">
+        <mkdir dir="generated"/>
+    </target>
+
+    <target name="setup_compile_and_generate">
+        <mkdir dir="build"/>
+    </target>
+
+    <target name="clean_all">
+        <delete dir="generated"/>
+        <delete dir="build"/>
+    </target>
+
+    <!-- Generate canonical metamodel classes (source) without compiling them -->
+    <target name="generate" depends="clean_all,setup_compile">
+         <javac srcdir="src" destdir="generated" debug="on">
+            <classpath>
+               <pathelement path="${ECLIPSELINK_CLASSPATH}"/>
+               <path refid="processor.jars"/>
+            </classpath>
+            <compilerarg value="-proc:only"/>
+        </javac>
+    </target>
+
+    <!-- Generate canonical metamodel classes and compile them -->
+    <target name="generateAndCompile" depends="clean_all,setup_compile_and_generate">
+         <javac srcdir="src" destdir="build" debug="on">
+            <classpath>
+               <pathelement path="${ECLIPSELINK_CLASSPATH}"/>
+               <path refid="processor.jars"/>
+            </classpath>
+        </javac>
+    </target>
+
+</project>

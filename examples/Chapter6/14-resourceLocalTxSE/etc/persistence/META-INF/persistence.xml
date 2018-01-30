@@ -1,0 +1,14 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+    <persistence-unit name="admin" transaction-type="RESOURCE_LOCAL">
+        <class>examples.model.User</class>
+        <validation-mode>NONE</validation-mode>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/resourceLocalTxSE;create=true"/>
+            <property name="javax.persistence.jdbc.user" value="APP"/>
+            <property name="javax.persistence.jdbc.password" value="APP"/>
+            <!-- enable this property to see SQL and other logging -->
+            <!-- property name="eclipselink.logging.level" value="FINE"/ -->
+        </properties>
+    </persistence-unit>
+</persistence>

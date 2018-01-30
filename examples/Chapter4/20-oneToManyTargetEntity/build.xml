@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project name="example" default="deploy">
+ 
+    <property file="../../../config/common.properties"/>
+    <import file="../../../config/common.xml" />
+
+    <target name="deploy" depends="init,build_war,create_datasource,run_sql,deploy_war" />
+    <target name="undeploy" depends="init,undeploy_war,remove_datasource,clean" />
+
+    <target name="init">
+        <property name="example_name" value="oneToManyTargetEntity" />
+        <property name="DB_NAME" value="oneToManyTargetEntity" />
+    </target>
+</project>

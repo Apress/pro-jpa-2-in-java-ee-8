@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project name="example" default="deploy">
+ 
+    <property file="../../../config/common.properties"/>
+    <import file="../../../config/common.xml" />
+
+    <!--target name="deploy" depends="init,build_ear2,create_datasource,run_sql,deploy_ear" /-->
+    <target name="deploy" depends="init,build_ear2,deploy_ear" />
+    <target name="undeploy" depends="init,undeploy_ear,remove_datasource,clean" />
+
+    <target name="init">
+        <property name="example_name" value="entityBeanMigration" />
+        <property name="DB_NAME" value="entityBeanMigration" />
+    </target>
+
+    <target name="build_ear2" depends="setup,build_persistence,build_jar2,build_war2">
+        <jar jarfile="dist/${example_name}.ear" update="yes">
+            <fileset file="dist/${example_name}.war"/>
+            <fileset file="dist/${example_name}.jar"/>
+            <fileset file="dist/persistence.jar"/>
+        </jar>
+    </target>
+
+    <target name="build_persistence" depends="setup">
+        <mkdir dir="build/persistence"/>
+        <javac srcdir="src/model" destdir="build/persistence" debug="on">
+            <classpath>
+               <pathelement path="${CLIENT_CLASSPATH}" />
+            </classpath>
+        </javac>
+        <copy todir="build/persistence" failonerror="false">
+            <fileset dir="etc/persistence"/>
+        </copy>
+        <jar jarfile="dist/persistence.jar" update="yes">
+            <fileset dir="build/persistence"/>
+        </jar>
+    </target>
+
+    <target name="build_jar2" depends="setup">
+        <javac srcdir="src/ejb" destdir="build/model" debug="on">
+            <classpath>
+               <pathelement path="${CLIENT_CLASSPATH}" />
+               <pathelement path="build/persistence" />
+            </classpath>
+        </javac>
+        <jar jarfile="dist/${example_name}.jar" update="yes">
+            <fileset dir="build/model"/>
+        </jar>
+    </target>
+
+    <target name="build_war2" depends="setup" if="servletSrcExists">
+        <javac srcdir="src/servlet" destdir="build/servlet/WEB-INF/classes" debug="on">
+            <classpath>
+               <pathelement path="${CLIENT_CLASSPATH}" />
+               <pathelement location="dist/${example_name}.jar" />
+               <pathelement path="build/persistence" />
+            </classpath>
+        </javac>
+        <jar jarfile="dist/${example_name}.war" update="yes">
+            <fileset dir="build/servlet"/>
+            <fileset dir="etc/web"/>
+        </jar>
+    </target></project>

@@ -1,0 +1,10 @@
+connect 'jdbc:derby://localhost:1527/storedProc;create=true';
+
+call sqlj.install_jar('sproc.jar', 'mySproc',0);
+
+create procedure app.readEmps(param1 integer) 
+parameter style java 
+language java 
+reads sql data 
+dynamic result sets 1 
+external name 'examples.stateless.Sproc.selectEmps';

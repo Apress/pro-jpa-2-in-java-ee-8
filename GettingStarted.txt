@@ -1,0 +1,36 @@
+
+These examples assume that you have installed a minimum of Java SE 8 and Apache ant.
+There are existing .bat files for Windows platforms. The scripts are typically only one or two lines, so for other platforms just invoke the commands directly.
+
+Java SE 8 is available for download at http://java.sun.com/javase/downloads/index.jsp.
+Apache ant 1.10.1 is available for download at http://ant.apache.org. 
+Java EE 8 - GlassFish 5 is available for download at https://javaee.github.io/glassfish/download
+
+1. Download and and unzip the example zip file to a directory. We refer to that directory as <EXAMPLES_HOME>.
+
+2. Edit <EXAMPLES_HOME>/config/setenv.bat to point to your JDK 1.8 and ant 1.8.0 installation 
+   directories if JAVA_HOME and ANT_HOME have not been set in your environment.
+
+3. Download and install Glassfish V5 from http://download.oracle.com/glassfish/5.0/release/glassfish-5.0-web.zip.
+   We recommend installing the Glassfish V5 Web Profile.
+
+4. Edit <EXAMPLES_HOME>/config/common.properties and set the following properties:
+
+       EXAMPLES_HOME - the folder in which the examples were unzipped 
+       SERVER_HOME - the folder in which Glassfish was installed
+  
+   NOTE: Make sure you use a forward slash separator ('/') not a backward slash ('\')
+
+5. Start Glassfish and the Derby database by invoking the startservers.bat script
+   in <EXAMPLES_HOME>/bin.
+
+6. Open <EXAMPLES_HOME>/examples/examplesHome.html to get started.
+
+   For each server-based example:
+
+        1. Run deploy.bat before running the example
+        2. Run undeploy.bat when finished with the example
+
+   The client-based examples have a run.bat script. They assume the database is 
+   already runnning, as in step 5.
+

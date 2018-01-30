@@ -1,0 +1,11 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+    <persistence-unit name="EmployeeHR">
+        <jta-data-source>jdbc/employeeSearchService</jta-data-source>
+        <properties>
+            <property name="eclipselink.target-server" value="SunAS9"/>
+            <property name="eclipselink.target-database" 
+                      value="org.eclipse.persistence.platform.database.DerbyPlatform"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
+        </properties>
+    </persistence-unit>
+</persistence>

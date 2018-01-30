@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project name="example" default="deploy">
+ 
+    <property file="../../../config/common.properties"/>
+    <import file="../../../config/common.xml" />
+
+    <!--target name="deploy" depends="init,build_ear,create_datasource,deploy_ear" /-->
+    <target name="deploy" depends="init,build_ear_without_war,create_datasource,deploy_ear" />
+    <!--target name="deploy" depends="init,build_jar,create_datasource" /-->
+    <target name="undeploy" depends="init,undeploy_ear,remove_datasource,clean" />
+    <!--target name="undeploy" depends="init,remove_datasource,clean" /-->
+
+    <target name="init">
+        <property name="example_name" value="schemaUniqueConstraints" />
+        <property name="DB_NAME" value="schemaUniqueConstraints" />
+    </target>
+</project>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project name="example" default="run">
+ 
+    <property file="../../../config/common.properties"/>
+    <import file="../../../config/common.xml" />
+
+    <target name="run" depends="init,build_tests,run_test,clean" />
+
+    <target name="init">
+        <property name="example_name" value="testingEntities" />
+    </target>
+
+    
+    <target name="run_test">
+        <junit printsummary="yes" fork="yes">
+            <formatter type="plain"/>
+            <test name="examples.stateless.DepartmentTest"/>
+            <classpath>
+               <pathelement path="${J2EE_CLASSPATH}" />
+               <pathelement path="build/test" />
+               <pathelement location="dist/${example_name}.jar" />
+            </classpath>
+        </junit>
+    </target>
+</project>

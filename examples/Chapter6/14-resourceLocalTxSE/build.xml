@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project name="example" default="run">
+ 
+    <property file="../../../config/common.properties"/>
+    <import file="../../../config/common.xml" />
+
+    <target name="run" depends="init,build,run_sql,run_client,clean" />
+
+    <target name="init">
+        <property name="example_name" value="resourceLocalTxSE" />
+        <property name="DB_NAME" value="resourceLocalTxSE" />
+    </target>
+
+    <target name="build_jar" depends="setup" if="modelSrcExists"> 
+        <copy todir="build/model" failonerror="false">
+            <fileset dir="etc/persistence"/>
+        </copy>
+        <javac srcdir="src/model" destdir="build/model" debug="on">
+            <classpath>
+                <pathelement path="${CLIENT_CLASSPATH}" />
+                <pathelement path="build/model" />
+            </classpath>
+        </javac>
+        <jar jarfile="dist/${example_name}.jar" update="true">
+            <fileset dir="build/model"/>
+        </jar>
+    </target>
+
+    <target name="build" depends="setup,build_jar">
+         <javac srcdir="src/client" destdir="build/client" debug="on">
+            <classpath>
+               <pathelement path="${JAVAEE_CLASSPATH}" />
+               <pathelement location="dist/${example_name}.jar" />
+            </classpath>
+        </javac>
+        <jar jarfile="dist/${example_name}_client.jar" update="yes">
+            <fileset dir="build/client"/>
+        </jar>
+    </target>
+    
+    <target name="run_client">
+	<java classname="examples.client.ExpirePasswords" fork="true" >
+            <arg value="200"/> <!-- expire pwds older than x days -->
+            <arg value="default"/> <!-- default password -->
+            <sysproperty key="derby.system.home" value="${DERBY_SYSTEM_HOME}"/>
+            <classpath>
+                <pathelement path="${CLIENT_CLASSPATH}"/>
+                <pathelement location="dist/${example_name}_client.jar" />
+                <pathelement location="dist/${example_name}.jar" />
+            </classpath>
+        </java>
+    </target></project>

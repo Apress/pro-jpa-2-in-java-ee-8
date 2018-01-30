@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+    http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+    version="2.2">
+
+    <persistence-unit-metadata>
+        <xml-mapping-metadata-complete/>
+        <persistence-unit-defaults>
+            <access>FIELD</access>
+            <cascade-persist/>
+        </persistence-unit-defaults>
+    </persistence-unit-metadata>
+    
+    <package>examples.model</package>
+
+    <named-query name="Employee.findAll">
+        <query>SELECT e FROM Employee e</query>
+    </named-query>
+
+    <entity class="Employee">
+    
+        <table name="EMP"/>
+        <secondary-table name="EMP_ADDRESS">
+            <primary-key-join-column name="EMP_ID"/>
+        </secondary-table>
+
+        <inheritance strategy="SINGLE_TABLE"/>
+        <discriminator-column name="TYPE"/>
+        
+        <attributes>
+            <id name="id">
+                <generated-value strategy="TABLE" generator="EmpGen"/>
+                <table-generator name="EmpGen" table="ID_GEN" 
+                                 pk-column-name="GEN_NAME" value-column-name="GEN_VAL" 
+                                 pk-column-value="Emp_Gen"/>
+            </id>
+            <basic name="name"/>
+            <basic name="startDate">
+                <temporal>DATE</temporal>
+            </basic>
+
+            <embedded name="address">
+                <attribute-override name="street">
+                    <column name="STREET" table="EMP_ADDRESS"/>
+                </attribute-override>
+                <attribute-override name="city">
+                    <column name="CITY" table="EMP_ADDRESS"/>
+                </attribute-override>
+                <attribute-override name="state">
+                    <column name="PROV" table="EMP_ADDRESS"/>
+                </attribute-override>
+                <attribute-override name="zip">
+                    <column name="PCODE" table="EMP_ADDRESS"/>
+                </attribute-override>
+            </embedded>
+
+            <one-to-one name="parkingSpace" mapped-by="employee"/>
+            
+            <many-to-one name="manager">
+                <join-column name="MGR"/>
+            </many-to-one>
+
+            <one-to-many name="directs" mapped-by="manager">
+                <order-by/>
+            </one-to-many>
+            
+            <many-to-one name="department">
+                <join-column name="DEPT"/>
+            </many-to-one>
+            
+            <many-to-many name="projects">
+                <join-table name="EMP_PRJ">
+                    <join-column name="EMP_ID"/>
+                    <inverse-join-column name="PROJ_ID"/>
+                </join-table>
+            </many-to-many>
+
+            <element-collection name="projectHours">
+                <map-key-column name="PROJ_NAME"/>
+                <column name="HOURS_WORKED"/>
+                <collection-table name="PROJ_TIME"/>
+            </element-collection>
+        </attributes>
+    </entity>
+    
+    <mapped-superclass class="CompanyEmployee">
+        <attributes>
+            <basic name="vacation"/>
+        </attributes>
+    </mapped-superclass>
+
+    <entity class="ContractEmployee">
+        <discriminator-value>CONT</discriminator-value>
+        <attributes>
+            <basic name="dailyRate"/>
+            <basic name="term"/>
+        </attributes>
+    </entity >
+    
+    <entity class="FullTimeEmployee">
+        <discriminator-value>FT</discriminator-value>
+        <attributes>
+            <basic name="pension"/>
+            <basic name="salary"/>
+        </attributes>
+    </entity >
+
+    <entity class="PartTimeEmployee">
+        <discriminator-value>PT</discriminator-value>
+        <attributes>
+            <basic name="hourlyRate"/>
+        </attributes>
+    </entity >
+
+    <entity class="ParkingSpace" access="PROPERTY">
+        <attributes>
+            <id name="id"/>
+            <basic name="lot"/>
+            <basic name="location"/>
+            <one-to-one name="employee">
+                <join-column name="EMP_ID"/>
+            </one-to-one>
+        </attributes>
+    </entity>
+
+    <entity class="Department">
+        <attributes>
+            <id name="id"/>
+            <basic name="name"/>
+            <one-to-many name="employees" mapped-by="department"/>
+        </attributes>
+    </entity>
+
+    <entity class="Project">
+        <attributes>
+            <id name="id"/>
+            <basic name="name"/>
+            <many-to-many name="employees" mapped-by="projects"/>
+        </attributes>
+    </entity>
+
+    <embeddable class="Address">
+        <attributes>
+            <basic name="street"/>
+            <basic name="city"/>
+            <basic name="state"/>
+            <basic name="zip"/>
+        </attributes>
+    </embeddable>
+
+</entity-mappings>

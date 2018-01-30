@@ -1,0 +1,10 @@
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" version="1.0">
+    <table-generator name="Phone_Gen" table="ID_GEN" pk-column-value="PhoneId"/>
+    <entity class="examples.model.Phone">
+        <attributes>
+            <id name="id">
+                <generated-value strategy="TABLE" generator="Phone_Gen"/>
+            </id>
+        </attributes>
+    </entity>
+</entity-mappings>

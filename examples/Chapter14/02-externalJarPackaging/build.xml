@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project name="example" default="deploy">
+ 
+    <property file="../../../config/common.properties"/>
+    <import file="../../../config/common.xml" />
+
+    <target name="deploy" depends="init,build_war,create_datasource,run_sql,deploy_war" />
+    <target name="undeploy" depends="init,remove_datasource,clean" />
+
+    <target name="init">
+        <property name="example_name" value="externalJarPackaging" />
+        <property name="DB_NAME" value="externalJarPackaging" />
+        <property name="EJB_JAR" value="emp_ejb.jar" />
+        <property name="ENTITY_JAR" value="emp_classes.jar" />
+      
+        <mkdir dir="build/ejb"/>
+        <mkdir dir="build/lib"/>
+    </target>
+
+    <target name="build_entity_jar" depends="setup" if="modelSrcExists">
+        <javac srcdir="src/model/examples/model" destdir="build/model" debug="on">
+            <classpath>
+                <pathelement path="${CLIENT_CLASSPATH}" />
+            </classpath>
+        </javac>
+        <jar jarfile="build/lib/${ENTITY_JAR}" update="true">
+            <fileset dir="build/model"/>
+        </jar>
+    </target>
+
+    <target name="build_ejb_jar" depends="setup,build_entity_jar" if="modelSrcExists">
+        <!-- Include persistence resources -->
+        <copy todir="build/ejb" failonerror="false">
+            <fileset dir="etc/persistence"/>
+        </copy>
+        <javac srcdir="src/model/examples/stateless" destdir="build/ejb" debug="on">
+            <classpath>
+                <pathelement path="${CLIENT_CLASSPATH}" />
+                <pathelement path="build/lib/${ENTITY_JAR}" />
+            </classpath>
+        </javac>
+        <jar jarfile="build/lib/${EJB_JAR}" update="true">
+            <fileset dir="build/ejb"/>
+        </jar>
+    </target>
+
+    <target name="build_servlet" depends="build_entity_jar,build_ejb_jar" if="servletSrcExists">
+        <javac srcdir="src/servlet" destdir="build/classes" debug="on">
+            <classpath>
+                <pathelement path="${CLIENT_CLASSPATH}" />
+                <pathelement path="build/lib/${EJB_JAR}" />
+                <pathelement path="build/lib/${ENTITY_JAR}" />
+            </classpath>
+        </javac>        
+    </target>
+
+    <target name="build_war" depends="setup,build_ejb_jar,build_servlet">
+        <!-- Build the war -->
+        <war destfile="dist/${example_name}.war" update="true" needxmlfile="false">
+            <fileset dir="build/resources"/>
+            <classes dir="build/classes"/>
+            <lib dir="build/lib"/>
+        </war>
+    </target>
+
+</project>

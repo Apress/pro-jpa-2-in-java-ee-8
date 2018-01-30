@@ -1,0 +1,2 @@
+call sqlj.install_jar('c:\derby\sproc.jar', 'APP.SPROCS',0);
+call sqlj.replace_jar('c:\derby\sproc.jar', 'APP.SPROCS');

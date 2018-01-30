@@ -1,0 +1,16 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+    <persistence-unit name="EmployeeService">
+        <jta-data-source>jdbc/schemaGenCreateTarget</jta-data-source>
+        <properties>
+            <property name="javax.persistence.schema-generation.scripts.action" 
+                      value="create"/>
+            <property name="javax.persistence.schema-generation.scripts.create-target" 
+                      value="file:///c:/scripts/create.ddl"/>
+
+            <property name="eclipselink.target-server" value="SunAS9"/>
+            <property name="eclipselink.target-database" 
+                      value="org.eclipse.persistence.platform.database.DerbyPlatform"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
+        </properties>
+    </persistence-unit>
+</persistence>

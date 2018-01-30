@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project name="example" default="run">
+ 
+    <property file="../../../config/common.properties"/>
+    <import file="../../../config/common.xml" />
+
+    <target name="run" depends="init,build_tests,start_db,run_sql,run_test,stop_db,clean" />
+
+    <target name="init">
+        <property name="example_name" value="springTesting" />
+        <property name="DB_NAME" value="springTesting" />
+    </target>
+
+    
+    <target name="run_test">
+        <junit printsummary="yes" fork="yes">
+            <sysproperty key="derby.system.home" value="${DERBY_SYSTEM_HOME}"/>
+
+            <formatter type="plain"/>
+            <test name="examples.stateless.TestEmployeeServiceBean"/>
+
+            <classpath>
+               <pathelement path="${CLIENT_CLASSPATH}"/>
+               <pathelement path="${SPRING_CLASSPATH}"/>
+               <pathelement path="build/test" />
+               <pathelement path="etc/spring" />
+               <pathelement location="dist/${example_name}.jar" />
+            </classpath>
+        </junit>
+    </target>
+</project>

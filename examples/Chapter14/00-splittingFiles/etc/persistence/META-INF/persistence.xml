@@ -1,0 +1,19 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+             http://java.sun.com/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+    <persistence-unit name="EmployeeService">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>jdbc/splittingFiles</jta-data-source>
+        <mapping-file>META-INF/employee_service_entities.xml</mapping-file>
+        <mapping-file>META-INF/employee_service_queries.xml</mapping-file>
+        <jar-file>lib/emp_classes.jar</jar-file>
+        <properties>																		   
+            <property name="eclipselink.target-server" value="SunAS9"/>
+            <property name="eclipselink.target-database" 
+                      value="org.eclipse.persistence.platform.database.DerbyPlatform"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
+        </properties>
+    </persistence-unit>
+</persistence>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project name="example" default="deploy">
+ 
+    <property file="../../../config/common.properties"/>
+    <import file="../../../config/common.xml" />
+
+    <target name="deploy" depends="init,setup,gen_classes,build_war,create_datasource,run_sql,deploy_war" /> 
+    <target name="undeploy" depends="init,undeploy_war,remove_datasource,clean" />
+
+    <target name="init">
+        <property name="example_name" value="canonicalMetamodelQuery" />
+        <property name="DB_NAME" value="canonicalMetamodelQuery" />
+    </target>
+
+    <path id="processor.jars">
+      <pathelement location="../../../lib/org.eclipse.persistence.jpa.modelgen.processor.jar"/>
+    </path>
+
+    <target name="gen_classes" depends="">
+         <javac srcdir="src/model/examples/model" destdir="build/classes" debug="on">
+            <classpath>
+               <pathelement path="${ECLIPSELINK_CLASSPATH}"/>
+               <path refid="processor.jars"/>
+            </classpath>
+        </javac>
+    </target>
+
+</project>

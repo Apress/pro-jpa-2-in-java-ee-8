@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project name="common">
+    <property file="common.properties"/>
+
+    <target name="clean">
+        <delete dir="build"/>
+        <delete dir="dist"/>
+    </target>
+
+    <target name="setup">
+        <mkdir dir="build/model"/>
+        <mkdir dir="build/client"/>
+        <mkdir dir="build/test"/>
+        <mkdir dir="build/resources"/>
+        <mkdir dir="build/classes"/>
+        <mkdir dir="dist"/>
+        <available property="modelSrcExists" file="src/model" />
+        <available property="servletSrcExists" file="src/servlet" />
+    </target>
+
+<!--    <target name="build_ear_without_war" depends="setup,build_jar">
+        <copy todir="dist/ear/META-INF" failonerror="false">
+            <fileset file="etc/META-INF/application.xml"/>
+        </copy>
+        <jar jarfile="dist/${example_name}.ear" update="yes">
+            <fileset file="dist/${example_name}.jar"/>
+            <fileset dir="dist/ear"/>
+        </jar>
+    </target>
+-->
+
+<!-- <target name="build_jar" depends="setup" if="modelSrcExists"> 
+        <copy todir="build/model" failonerror="false">
+            <fileset dir="etc/persistence"/>
+        </copy>
+        <javac srcdir="src/model" destdir="build/model" debug="on">
+            <classpath>
+                <pathelement path="${CLIENT_CLASSPATH}" />
+                <pathelement path="build/model" />
+            </classpath>
+        </javac>
+        <jar jarfile="dist/lib/${example_name}.jar" update="true">
+            <fileset dir="build/model"/>
+        </jar>
+    </target>
+-->
+
+    <target name="build_model" depends="setup" if="modelSrcExists">
+        <javac srcdir="src/model" destdir="build/classes" debug="on">
+            <classpath>
+	        <pathelement path="${CLIENT_CLASSPATH}" />
+	        <pathelement path="build/classes" />
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="build_servlet" depends="setup" if="servletSrcExists">
+        <javac srcdir="src/servlet" destdir="build/classes" debug="on">
+            <classpath>
+                <pathelement path="${CLIENT_CLASSPATH}" />
+                <pathelement path="build/classes" />
+            </classpath>
+        </javac>        
+    </target>
+
+ <!--
+
+    <target name="build_war_without_jpa_jsp" depends="setup,build_model,build_servlet">
+        <war destfile="dist/${example_name}.war" update="true" needxmlfile="false">
+            <classes dir="build/classes"/>
+        </war>
+    </target>
+
+    <target name="build_war_without_jpa" depends="setup,build_model,build_servlet">
+        <war destfile="dist/${example_name}.war" update="true" needxmlfile="false">
+            <fileset dir="etc/web/jsp"/>
+            <classes dir="build/classes"/>
+        </war>
+    </target>
+
+    <target name="build_war_without_jsp" depends="setup,build_model,build_servlet">
+        <copy todir="build/classes" failonerror="false">
+            <fileset dir="etc/persistence"/>
+        </copy>
+        <war destfile="dist/${example_name}.war" update="true" needxmlfile="false">
+            <classes dir="build/classes"/>
+        </war>
+    </target>
+-->
+    <target name="build_war" depends="setup,build_model,build_servlet">
+        <!-- Include persistence, jsp and html file resources if they exist -->
+        <copy todir="build/classes" failonerror="false">
+            <fileset dir="etc/persistence"/>
+        </copy>
+        <copy todir="build/resources" failonerror="false">
+            <fileset dir="etc/web/jsp"/>
+        </copy>
+        <copy todir="build/resources" failonerror="false">
+            <fileset dir="etc/web/html"/>            
+        </copy>
+        <!-- Build the war -->
+        <war destfile="dist/${example_name}.war" update="true" needxmlfile="false">
+            <fileset dir="build/resources"/>
+            <classes dir="build/classes"/>
+        </war>
+    </target>
+    
+    <!-- This target is for an application-managed EE project where there is no persistence injection on a session bean 
+         (injection is on a servlet) -->
+<!--
+    <target name="build_jar_without_persistence" depends="setup" if="modelSrcExists">
+        <javac srcdir="src/model" destdir="build/model" debug="on">
+            <classpath>
+                <pathelement path="${CLIENT_CLASSPATH}" />
+            </classpath>
+        </javac>
+        <jar jarfile="dist/lib/${example_name}.jar" update="true">
+            <fileset dir="build/model"/>
+        </jar>
+    </target>
+-->
+
+    <!-- This target is for an application-managed EE project where there is no persistence injection on a session bean 
+         (injection is on a servlet) -->
+
+<!--    <target name="build_with_persistence_in_war" depends="build_war_with_persistence"/>
+    <target name="build_war_with_persistence" depends="setup,build_jar_without_persistence" if="servletSrcExists">
+        <javac srcdir="src/servlet" destdir="build/servlet" debug="on">
+            <classpath>
+                <pathelement path="${CLIENT_CLASSPATH}" />
+                <pathelement location="dist/lib/${example_name}.jar" />
+            </classpath>
+        </javac>
+        <copy todir="build/servlet" failonerror="false">
+            <fileset dir="etc/persistence"/>
+        </copy>
+        <war destfile="dist/${example_name}.war" webxml="etc/web/WEB-INF/web.xml" update="true">
+            <classes dir="build/servlet"/>
+            <lib dir="dist/lib"/>
+            <fileset dir="etc/web" excludesFile="etc/web/WEB-INF/web.xml"/>
+        </war>
+    </target>
+-->
+<!--    <target name="build_tests" depends="setup,build_jar"> -->
+    <target name="build_tests" depends="setup">
+        <javac srcdir="src/test" destdir="build/test" debug="on">
+            <classpath>
+                <pathelement path="${JAVAEE_CLASSPATH}" />
+                <pathelement path="${SPRING_CLASSPATH}" />
+                <pathelement location="dist/${example_name}.jar" />
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="start_server">
+        <exec executable="${SERVER_HOME}/bin/asadmin" failonerror="true" vmlauncher="false">
+            <arg line="start-domain --verbose=true domain1"/>
+        </exec>
+    </target>
+
+    <target name="stop_server" >
+        <exec executable="${SERVER_HOME}/bin/asadmin" failonerror="true" vmlauncher="false">
+            <arg line="stop-domain domain1"/>
+        </exec>
+    </target>
+
+    <target name="start_db" >
+        <java classname="org.apache.derby.drda.NetworkServerControl" 
+              classpath="${DERBY_CLASSPATH}"
+              spawn="true"
+              fork="true">
+                <arg line="start -h ${DERBY_HOST} -p ${DERBY_PORT}"/>
+                <sysproperty key="derby.system.home" value="${DERBY_SYSTEM_HOME}"/>
+        </java>
+    </target>
+
+    <target name="stop_db" >
+        <java classname="org.apache.derby.drda.NetworkServerControl" 
+              classpath="${DERBY_CLASSPATH}"
+              fork="true">
+                <arg line="shutdown -h ${DERBY_HOST} -p ${DERBY_PORT}"/>
+                <sysproperty key="derby.system.home" value="${DERBY_SYSTEM_HOME}"/>
+        </java>
+    </target>
+
+    <target name="run_sql">
+        <sql driver="org.apache.derby.jdbc.ClientDriver"
+             url="jdbc:derby://${DERBY_HOST}:${DERBY_PORT}/${DB_NAME};create=true"
+             userid="${DERBY_USER}"
+             password="${DERBY_PWD}"
+             src="etc/sql/db.sql"
+             onerror="continue">
+            <classpath>
+                <pathelement path="${DERBY_CLASSPATH}"/>
+            </classpath>
+        </sql>
+    </target>
+
+    <target name="deploy_war">
+        <echo message=" --user ${ADMIN_USER} ${PASSWORD_PREFIX} ${PASSWORD_FILE} deploy dist/${example_name}.war"/>
+        <exec executable="${SERVER_HOME}/bin/asadmin" failonerror="true" vmlauncher="false">
+            <arg line=" --user ${ADMIN_USER} ${PASSWORD_PREFIX} ${PASSWORD_FILE} deploy dist/${example_name}.war"/>
+        </exec>
+    </target>
+
+    <target name="undeploy_war">
+        <exec executable="${SERVER_HOME}/bin/asadmin" failonerror="true" vmlauncher="false">
+            <arg line=" --user ${ADMIN_USER} ${PASSWORD_PREFIX} ${PASSWORD_FILE} undeploy ${example_name}"/>
+        </exec>
+    </target>
+
+    <target name="create_datasource">
+        <exec executable="${SERVER_HOME}/bin/asadmin" failonerror="true" vmlauncher="false">
+            <arg line=" --user ${ADMIN_USER} ${PASSWORD_PREFIX} ${PASSWORD_FILE} create-jdbc-connection-pool 
+                        --datasourceclassname org.apache.derby.jdbc.ClientXADataSource
+                        --restype javax.sql.XADataSource --property portNumber=${DERBY_PORT}:password=${DERBY_PWD}:user=${DERBY_USER}:serverName=${DERBY_HOST}:databaseName=${DB_NAME}:connectionAttributes=\;create\=true ${DB_NAME}" />
+        </exec>
+        <exec executable="${SERVER_HOME}/bin/asadmin" failonerror="true" vmlauncher="false">
+            <arg line=" --user ${ADMIN_USER} ${PASSWORD_PREFIX} ${PASSWORD_FILE} create-jdbc-resource 
+                        --connectionpoolid ${DB_NAME} jdbc/${DB_NAME}" />
+        </exec>
+    </target>
+
+    <!-- disable auto ddl creation on derby for composite ID attributes using EmbeddedId and IdClass - db.sql creates are significant here-->
+    <target name="create_datasource_no_ddl_create">
+        <exec executable="${SERVER_HOME}/bin/asadmin" failonerror="true" vmlauncher="false">
+            <arg line=" --user ${ADMIN_USER} ${PASSWORD_PREFIX} ${PASSWORD_FILE} create-jdbc-connection-pool 
+                        --datasourceclassname org.apache.derby.jdbc.ClientXADataSource
+                        --restype javax.sql.XADataSource --property portNumber=${DERBY_PORT}:password=${DERBY_PWD}:user=${DERBY_USER}:serverName=${DERBY_HOST}:databaseName=${DB_NAME}:connectionAttributes=\;create\=false ${DB_NAME}" />
+        </exec>
+        <exec executable="${SERVER_HOME}/bin/asadmin" failonerror="true" vmlauncher="false">
+            <arg line=" --user ${ADMIN_USER} ${PASSWORD_PREFIX} ${PASSWORD_FILE} create-jdbc-resource 
+                        --connectionpoolid ${DB_NAME} jdbc/${DB_NAME}" />
+        </exec>
+    </target>
+
+    <target name="remove_datasource">
+        <exec executable="${SERVER_HOME}/bin/asadmin" failonerror="true" vmlauncher="false">
+            <arg line=" --user ${ADMIN_USER} ${PASSWORD_PREFIX} ${PASSWORD_FILE} delete-jdbc-resource jdbc/${DB_NAME}" />
+        </exec>
+        <exec executable="${SERVER_HOME}/bin/asadmin" failonerror="true" vmlauncher="false">
+            <arg line=" --user ${ADMIN_USER} ${PASSWORD_PREFIX} ${PASSWORD_FILE} delete-jdbc-connection-pool ${DB_NAME}" />
+        </exec>
+    </target>
+</project>

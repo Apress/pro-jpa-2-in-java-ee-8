@@ -1,0 +1,6 @@
+Testsuite: examples.stateless.DepartmentTest
+Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.049 sec
+
+Testcase: testValidDepartmentId took 0.004 sec
+Testcase: testDepartmentIdInvalidLength took 0.001 sec
+Testcase: testDepartmentIdCase took 0 sec

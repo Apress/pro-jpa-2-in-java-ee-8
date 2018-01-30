@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <bean id="em-factory"
+          class="examples.stateless.EntityManagerFactoryBean"
+          destroy-method="destroy">
+        <property name="unitName">
+            <value>hr</value>
+        </property>
+    </bean>
+    <bean id="shared-entity-manager"
+          factory-bean="em-factory"
+          factory-method="createEntityManager"/>
+    <bean id="private-entity-manager"
+          factory-bean="em-factory"
+          factory-method="createEntityManager"
+          singleton="false"/>
+
+    <bean id="employee-service"
+          class="examples.stateless.EmployeeServiceBean">
+        <property name="entityManager">
+            <ref bean="shared-entity-manager"/>
+        </property>
+        <property name="auditService">
+            <ref bean="audit-service"/>
+        </property>
+    </bean>
+    <bean id="audit-service" 
+          class="examples.stateless.AuditServiceBean">
+        <property name="entityManager">
+            <ref bean="shared-entity-manager"/>
+        </property>
+    </bean>
+</beans>

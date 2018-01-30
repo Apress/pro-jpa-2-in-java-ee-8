@@ -1,0 +1,6 @@
+create procedure hello( INOUT name varchar(50)) 
+parameter style java 
+language java 
+reads sql data 
+dynamic result sets 0
+external name 'examples.stateless.Sproc.sayHello';

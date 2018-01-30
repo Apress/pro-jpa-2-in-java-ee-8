@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project name="example" default="deploy">
+ 
+    <property file="../../../config/common.properties"/>
+    <import file="../../../config/common.xml" />
+
+    <target name="deploy" depends="init,build_war,create_datasource,run_sql,deploy_war" />
+    <target name="undeploy" depends="init,undeploy_war,remove_datasource,clean" />
+
+    <target name="init">
+        <property name="example_name" value="splittingFiles" />
+        <property name="DB_NAME" value="splittingFiles" />
+        <property name="ENTITY_JAR" value="emp_classes.jar" />
+        
+        <mkdir dir="build/lib"/>
+    </target>
+
+    <target name="build_entity_jar" depends="setup" if="modelSrcExists">
+        <javac srcdir="src/model/examples/model" destdir="build/model" debug="on">
+            <classpath>
+                <pathelement path="${CLIENT_CLASSPATH}" />
+            </classpath>
+        </javac>
+        <jar jarfile="build/lib/${ENTITY_JAR}" update="true">
+            <fileset dir="build/model"/>
+        </jar>
+    </target>
+
+    <target name="build_stateless" depends="build_entity_jar">
+        <javac srcdir="src/model/examples/stateless" destdir="build/classes" debug="on">
+            <classpath>
+	        <pathelement path="${CLIENT_CLASSPATH}" />
+	        <pathelement path="build/lib/${ENTITY_JAR}" />
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="build_servlet" depends="build_stateless" if="servletSrcExists">
+        <javac srcdir="src/servlet" destdir="build/classes" debug="on">
+            <classpath>
+                <pathelement path="${CLIENT_CLASSPATH}" />
+                <pathelement path="build/lib/${ENTITY_JAR}" />
+            </classpath>
+        </javac>        
+    </target>
+
+    <target name="build_war" depends="setup,build_stateless,build_servlet">
+        <!-- Include persistence resources -->
+        <copy todir="build/classes" failonerror="false">
+            <fileset dir="etc/persistence"/>
+        </copy>
+        <!-- Build the war -->
+        <war destfile="dist/${example_name}.war" update="true" needxmlfile="false">
+            <fileset dir="build/resources"/>
+            <classes dir="build/classes"/>
+            <lib dir="build/lib"/>
+        </war>
+    </target>
+
+</project>

@@ -1,0 +1,20 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+    <persistence-unit name="jpqlExamples">
+    <!--persistence-unit name="jpqlExamples" transaction-type="RESOURCE_LOCAL"-->
+        <jta-data-source>jdbc/jpqlExamples</jta-data-source>
+		<class>examples.model.Employee</class>
+		<class>examples.model.Department</class>
+		<class>examples.model.Address</class>
+		<class>examples.model.DesignProject</class>
+		<class>examples.model.Phone</class>
+		<class>examples.model.Project</class>
+		<class>examples.model.QualityProject</class>
+        <validation-mode>NONE</validation-mode>
+        <properties>
+            <property name="eclipselink.target-server" value="SunAS9"/>
+            <property name="eclipselink.target-database" 
+                      value="org.eclipse.persistence.platform.database.DerbyPlatform"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
+        </properties>
+    </persistence-unit>
+</persistence>

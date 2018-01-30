@@ -1,0 +1,268 @@
+<html>
+  <head><title>Pro JPA 2 - Examples</title></head>
+<body>
+<h1>Pro JPA 2 Examples</h1>
+<h3>Java SE Examples</h3>
+The SE examples (Chapter 2) do not require a running server.  Simply go to the chapter's 
+example folder and run one of the batch files to execute the example.
+</br>
+<h3>Java EE Examples</h3>
+The other examples require a running application server.  Go to the 'bin' folder and start
+the Glassfish application server using the batch file (startserver.bat).  Once started, go
+to the desired chapter's example folder and build/deploy the application using the deploy.bat
+batch file.  Once that is done, come back to this page and click on the link of the desired 
+example.  This will provide you with a web client to run the example.
+<ul>
+    <li><b>Chapter 2: Getting Started</b>
+        <ul>
+            <li>These examples demonstrate the Java Persistence API in an SE environment. To run,
+			    go to the Chapter2 folder and run one of the batch files. Both
+				a simple interactive client to create/list/remove employees and a basic test like 
+				the one found in the chapter are available.</li>
+        </ul>
+    </li>
+    <li><b>Chapter 3: Enterprise Applications</b>
+        <ol>
+            <li><a href="http://localhost:8080/slsbExample/HelloServiceServlet">SLSB Example</a></li>
+            <li><a href="http://localhost:8080/slsbExampleNoInt/HelloServiceServlet2">SLSB No Interface Example</a></li>
+            <li><a href="http://localhost:8080/slsbLifecycleExample/LoggerServlet">SLSB Lifecycle Example</a></li>
+            <li><a href="http://localhost:8080/sfsbExample/ShoppingCartServlet">SFSB Example</a></li>
+            <li><a href="http://localhost:8080/sfsbLifecycleExample/OrderBrowserServlet">SFSB Lifecycle Example</a></li>
+            <li><a href="http://localhost:8080/singletonExample/HitCountServlet">Singleton Session Bean Example</a></li>
+            <li><a href="http://localhost:8080/servletExample/LoginServlet">Servlet Example</a></li>
+            <li><a href="http://localhost:8080/initialContextLookup/DepartmentServiceServlet">Dependency Lookup Example (using InitialContext)</a></li>
+            <li><a href="http://localhost:8080/ejbContextLookup/DepartmentServiceServlet">Dependency Lookup Example (using EJBContext)</a></li>
+            <li><a href="http://localhost:8080/fieldInjection/DepartmentServiceServlet">Field Injection Example</a></li>
+            <li><a href="http://localhost:8080/setterInjection/DepartmentServiceServlet">Setter Injection Example</a></li>
+            <li>Note: Injection of other EntityManager and EntityManagerFactory instances is shown throughout the examples in subsequent chapters.</li>
+            <li><a href="http://localhost:8080/cdiExample/DepartmentServiceServlet">CDI Example</a></li>
+            <li><a href="http://localhost:8080/cmtExample/ShoppingCartServlet">Container Managed Transaction (CMT) Demarcation Example</a></li>
+            <li><a href="http://localhost:8080/txInterceptor/ShoppingCartServlet">Transactional Interceptor Example</a></li>
+            <li><a href="http://localhost:8080/userTxExample/ProjectServlet">UserTransaction Example</a></li>
+            <li><a href="http://localhost:8080/employeeService_ch3/EmployeeServlet">Complete EmployeeService Example</a></li>
+        </ol>
+    </li>
+    <li><b>Chapter 4: Object-Relational Mapping</b>
+        <ol>
+            <li><a href="http://localhost:8080/fieldAccess/EmployeeServlet">Field Access Example</a></li>
+            <li><a href="http://localhost:8080/propertyAccess/EmployeeServlet">Property Access Example</a></li>
+            <li><a href="http://localhost:8080/mixedAccess/EmployeeServlet">Mixed @Access Example</a></li>
+            <li><a href="http://localhost:8080/customTableSchema/EmployeeServlet">Custom Table/Schema Example</a></li>
+            <b>Basic Mappings</b>
+            <li><a href="http://localhost:8080/customColumnMapping/EmployeeServlet">Custom Column Mapping Example</a></li>
+            <li><a href="http://localhost:8080/lobMapping/EmployeeServlet">LOB Mapping Example</a></li>
+            <li><a href="http://localhost:8080/enumMapping/EmployeeServlet">Enum Mapping Example</a></li>
+            <li><a href="http://localhost:8080/temporalMapping/EmployeeServlet">Temporal Mapping Example</a></li>
+            <li><a href="http://localhost:8080/transientMapping/EmployeeServlet">Transient Mapping Example</a></li>
+            <b>Id Generation</b>
+            <li><a href="http://localhost:8080/autoIdGeneration/EmployeeServlet">Auto Id Generation Example</a></li>
+            <li><a href="http://localhost:8080/tableIdGeneration/EmployeeServlet">Table Id Generation Example</a></li>
+            <li><a href="http://localhost:8080/sequenceIdGeneration/EmployeeServlet">Sequence Id Generation Example</a> (The Derby database does not support this feature)</li>
+            <li><a href="http://localhost:8080/dbIdentityIdGeneration/EmployeeServlet">DB Identity Id Generation Example</a></li>
+            <b>Relationship Mappings</b>
+            <li><a href="http://localhost:8080/manyToOne/EmployeeServlet">Many-to-One Example</a></li>
+            <li><a href="http://localhost:8080/joinColumn/EmployeeServlet">Many-to-One Join Column Example</a></li>
+            <li><a href="http://localhost:8080/oneToOneUnidirectional/EmployeeServlet">One-to-One Unidirectional Example</a></li>
+            <li><a href="http://localhost:8080/oneToOneBidirectional/EmployeeServlet">One-to-One Bidirectional Example</a></li>
+            <li><a href="http://localhost:8080/oneToOnePkMapping/EmployeeServlet">One-to-One PK Mapping Example</a></li>
+            <li><a href="http://localhost:8080/oneToManyBidirectional/EmployeeServlet">One-to-Many Bidirectional Example</a></li>
+            <li><a href="http://localhost:8080/oneToManyTargetEntity/EmployeeServlet">One-to-Many Target Entity Example</a></li>
+            <li><a href="http://localhost:8080/manyToManyBidirectional/EmployeeServlet">Many-to-Many Bidirectional Example</a></li>
+            <li><a href="http://localhost:8080/manyToManyJoinTable/EmployeeServlet">Many-to-Many Join Table Example</a></li>
+            <li><a href="http://localhost:8080/oneToManyUnidirectional/EmployeeServlet">One-to-Many Unidirectional Example</a></li>
+            <li><a href="http://localhost:8080/oneToOneLazy/EmployeeServlet">One-to-One Lazy Fetching Example</a></li>
+            <li><a href="http://localhost:8080/embeddedObjects/EmployeeServlet">Using Embedded Objects Example</a></li>
+            <li><a href="http://localhost:8080/sharingEmbeddedObjects/EmployeeServlet">Sharing Embedded Objects Example</a></li>
+        </ol>
+    </li>
+    <li><b>Chapter 5: Collection Mapping</b>
+        <ol>
+            <li><a href="http://localhost:8080/elementCollection/EmployeeServlet">ElementCollection Example</a></li>
+            <li><a href="http://localhost:8080/elementCollectionOverride/EmployeeServlet">ElementCollection Override Table Column Example</a></li>
+            <li><a href="http://localhost:8080/oneToManyList/EmployeeServlet">OneToMany List Example</a></li>
+            <li><a href="http://localhost:8080/persistentlyOrderedList/PrinterServlet">Persistently Ordered List Example</a></li>
+            <li><a href="http://localhost:8080/elementCollectionStringMap/EmployeeServlet">ElementCollection Map Keyed on Strings Example</a></li>
+            <li><a href="http://localhost:8080/elementCollectionEnumMap/EmployeeServlet">ElementCollection Map Keyed on Enumeration Example</a></li>
+            <li><a href="http://localhost:8080/oneToManyMap/EmployeeServlet">OneToMany Map Example</a></li>
+            <li><a href="http://localhost:8080/manyToManyMap/EmployeeServlet">ManyToMany Map Example</a></li>
+            <li><a href="http://localhost:8080/oneToManyEntityAttributeKey/EmployeeServlet">OneToMany Map Keyed on Entity Attribute Example</a></li>
+            <li><a href="http://localhost:8080/embeddableKey/EmployeeServlet">Embeddable Key Mapping Example</a></li>
+            <li><a href="http://localhost:8080/manyToManyEmbeddableKeyOverride/EmployeeServlet">ManyToMany Embeddable Key override Example</a></li>
+            <li><a href="http://localhost:8080/elementCollectionMapKeyEntity/EmployeeServlet">ElementCollection Map keyed on Entity Example</a></li>
+            <li><a href="http://localhost:8080/untypedMaps/EmployeeServlet">Untyped Maps Example</a></li>
+        </ol>
+    </li>
+    <li><b>Chapter 6: Entity Manager</b>
+        <ol>
+            <li><a href="http://localhost:8080/txScopedEmExample/EmployeeServlet">Tx-Scoped Entity Manager Example</a></li>
+            <li><a href="http://localhost:8080/extendedEmExample/EmployeeServlet">Extended Entity Manager Example 1</a></li>
+            <li><a href="http://localhost:8080/extendedEmExample2/EmployeeServlet">Extended Entity Manager Example 2</a></li>
+            <li><a href="http://localhost:8080/extendedEmExample3/EmployeeServlet">Extended Entity Manager Example 3 (correct usage)</a></li>
+            <li>Application Managed EntityManager in SE Example (run from folder)</li>
+            <li><a href="http://localhost:8080/applicationManagedEE/LoginServlet">Application Managed Entity Manager in EE Example</a></li>
+            <li><a href="http://localhost:8080/txScopedPersistenceContext/EmployeeServlet">Transaction Scoped Persistence Context Example</a></li>
+            <li><a href="http://localhost:8080/extendedPersistenceContext/EmployeeServlet">Extended  Persistence Context Example</a></li>
+            <li><a href="http://localhost:8080/persistenceContextCollision/EmployeeServlet">Extended  Persistence Context Collision Example</a></li>
+            <li><a href="http://localhost:8080/persistenceContextInheritance/EmployeeServlet">Extended  Persistence Context Inheritance Example</a></li>
+            <li><a href="http://localhost:8080/applicationManagedJTA/EmployeeServlet">Application Managed EntityManager with JTA Example</a></li>
+            <li><a href="http://localhost:8080/sharingApplicationManagedJTA/EmployeeServlet">Sharing Application Managed EntityManagers Example</a></li>
+            <li><a href="http://localhost:8080/unsyncPC/ShoppingCartServlet">Unsynchronized Persistence Context Example</a></li>
+            <li>Resource-Local Transaction in SE Example (run from folder)</li>
+            <li><a href="http://localhost:8080/resourceLocalTxEE/LoggingServlet">Resource-Local Transaction in EE Example</a></li>
+            <li><a href="http://localhost:8080/persistingWithRelationships/EmployeeServlet">Persisting Entities with Relationships Example</a></li>
+            <li><a href="http://localhost:8080/persistingWithRelationshipsUsingGetReference/EmployeeServlet">Persisting Entities with Relationships (using getReference) Example</a></li>
+            <li><a href="http://localhost:8080/removingWithRelationships/EmployeeServlet">Removing Entities with Relationships Example</a></li>
+            <li><a href="http://localhost:8080/persistingWithRelationshipsCascade/EmployeeServlet">Persisting Entities with Relationships using Cascade Example</a></li>
+            <li><a href="http://localhost:8080/removingWithRelationshipsCascade/EmployeeServlet">Removing Entities with Relationships using Cascade Example</a></li>
+            <li><a href="http://localhost:8080/mergingDetachedEntities/EmployeeServlet">Merging Detached Entities Example</a></li>
+            <li><a href="http://localhost:8080/detachmentWithTriggeredLazyLoading/EmployeeServlet">Triggering Lazy Loading before Detaching Entities Example</a></li>
+            <li><a href="http://localhost:8080/detachmentWithEagerLoading/EmployeeServlet">Using Eager Loading for Detaching Entities Example</a></li>
+            <li><a href="http://localhost:8080/noDetachmentSingleTx/EmployeeServlet">Avoiding Detaching Entities by using a Single Transaction Example</a></li>
+            <li><a href="http://localhost:8080/noDetachmentAppManagedEm/EmployeeServlet">Avoiding Detaching Entities by using an Application Managed EntityManager Example</a></li>
+            <li><a href="http://localhost:8080/noDetachmentSFSBAndExtendedEm/EmployeeServlet">Avoiding Detaching Entities by using a SFSB and an extended EntityManager Example</a></li>
+            <li><a href="http://localhost:8080/editSessionExample/EmployeeServlet">Using a SFSB and an Extended EntityManager to avoid merging Entities Example</a></li>
+            <li><a href="http://localhost:8080/conversationExample/EmployeeServlet">Using a conversation to avoid merging Entities Example</a></li>
+        </ol>
+    </li>
+    <li><b>Chapter 7: Using Queries</b>
+        <ol>
+            <li><a href="http://localhost:8080/dynamicQueryExample/QueryServlet">Dynamic Query Example</a></li>
+            <li><a href="http://localhost:8080/namedQueryExample/EmployeeServlet">Named Query Example</a></li>
+            <li><a href="http://localhost:8080/dynamicNamedQueryExample/EmployeeServlet">Dynamic Named Query Example</a></li>
+            <li><a href="http://localhost:8080/paramTypesExample/EmployeeServlet">Parameter Types Example</a></li>
+            <li><a href="http://localhost:8080/executingQueriesExample/EmployeeServlet">Executing Queries Example</a></li>
+            <li><a href="http://localhost:8080/queryResultsExample/EmployeeServlet">Query Results Example</a></li>
+            <li><a href="http://localhost:8080/queryPagingExample/EmployeeServlet">Query Paging Example</a></li>
+            <li><a href="http://localhost:8080/messageBoardExample/MessageBoardServlet">Message Board Example</a></li>
+            <li><a href="http://localhost:8080/bulkQueryExample/EmployeeServlet">Bulk Query Examples</a></li>
+            <li><a href="http://localhost:8080/queryHintsExample/EmployeeServlet">Query Hint Examples</a></li>
+        </ol>
+    </li>
+    <li><b>Chapter 8: Query Language</b>
+        <ul>
+            <li><a href="http://localhost:8080/jpqlExamples/index.html">JPQL Examples</a></li>
+        </ul>
+    </li>			  
+    <li><b>Chapter 9: Criteria API</b>
+        <ol>
+            <li><a href="http://localhost:8080/employeeSearchService/EmployeeServlet">Criteria Search</a></li>
+            <li><a href="http://localhost:8080/predicateConjunction/EmployeeServlet">Criteria Search using Predicate Conjunction</a></li>
+            <li><a href="http://localhost:8080/empSearchSubquery/EmployeeServlet">Criteria Search using Subquery</a></li>
+            <li><a href="http://localhost:8080/metamodelStronglyTyped/EmployeeServlet">Metamodel Strongly Typed API</a></li>
+            <li>Canonical Metamodel Generation - (run <b>generate.bat</b> from the example folder)</a></li>
+            <li><a href="http://localhost:8080/canonicalMetamodelQuery/EmployeeServlet">Criteria Search using Strongly Typed Canonical Metamodel</a></li>
+        </ol>
+    </li>
+    <li><b>Chapter 10: Advanced Object-Relational Mapping</b>
+        <ol>
+            <li><a href="http://localhost:8080/convertingAttributeState/EmployeeServlet">Converting Attribute State</a></li>
+            <li><a href="http://localhost:8080/complexEmbeddedObjects/EmployeeServlet">Complex Embedded Objects</a></li>
+            <li><a href="http://localhost:8080/overridingEmbeddedObjects/EmployeeServlet">Overriding Embedded Relationships</a></li>
+            <li><a href="http://localhost:8080/idClass/EmployeeServlet">Id Class Example</a></li>
+            <li><a href="http://localhost:8080/embeddedIdClass/EmployeeServlet">Embedded Id Class Example</a></li>
+            <li><a href="http://localhost:8080/derivedSingleKey/EmployeeServlet">Derived Single Key Example</a></li>
+            <li><a href="http://localhost:8080/derivedSharedMapsId/EmployeeServlet">Derived Shared MapsId Example</a></li>
+            <li><a href="http://localhost:8080/multipleMappedAttributes/ProjectServlet">Multiple Mapped Attributes Example</a></li>
+            <li><a href="http://localhost:8080/derivedEmbeddedId/ProjectServlet">Derived EmbeddedId Example</a></li>
+            <li><a href="http://localhost:8080/readOnlyMapping/EmployeeServlet">Read-only Mapping Example</a></li>
+            <li><a href="http://localhost:8080/joinTableManyToOne/EmployeeServlet">Using JoinTable for a ManyToOne Relationship Example</a></li>
+            <li><a href="http://localhost:8080/oneToManyNoJoinTable/EmployeeServlet">OneToMany Relationship with no JoinTable</a></li>
+            <li><a href="http://localhost:8080/compoundJoinColumns/EmployeeServlet">Compound Join Columns Example</a></li>
+            <li><a href="http://localhost:8080/orphanRemoval/EmployeeServlet">Orphan Removal Example</a></li>
+            <li><a href="http://localhost:8080/mappingRelationshipState/EmployeeServlet">Mapping Relationship State Example</a></li>
+            <li><a href="http://localhost:8080/multipleTables/EmployeeServlet">Multiple Tables Example</a></li>
+            <li><a href="http://localhost:8080/embeddedObjectsMultipleTables/EmployeeServlet">Mapping Embedded Objects to Multiple Tables Example</a></li>
+            <li><a href="http://localhost:8080/multipleTableCompoundPrimaryKey/EmployeeServlet">Multiple Tables and Compound Primary Key Relationships Example</a></li>
+            <li><a href="http://localhost:8080/singleTableInheritance/EmployeeServlet">Single Table Inheritance Example</a></li>
+            <li><a href="http://localhost:8080/joinedTableInheritance/EmployeeServlet">Joined Table Inheritance Example</a></li>
+            <li><a href="http://localhost:8080/tablePerConcreteClass/EmployeeServlet">Table per Concrete Class Inheritance Example</a></li>
+            <li><a href="http://localhost:8080/mixedInheritance/EmployeeServlet">Mixed Inheritance Example</a></li>
+        </ol>
+    </li>
+    <li><b>Chapter 11: Advanced Queries</b>
+        <ol>
+            <b>Native Queries</b>
+            <li><a href="http://localhost:8080/nativeQueries/EmployeeServlet">Basic Native Queries Example</a></li>
+            <li><a href="http://localhost:8080/sqlInsertDelete/LoggerServlet">Sql INSERT/DELETE Example</a></li>
+            <li><a href="http://localhost:8080/sqlResultSetMappings/EmployeeServlet">Sql ResultSetMapping Example</a></li>
+            <li><a href="http://localhost:8080/idClassResultMapping/EmployeeServlet">Id Class ResultSetMapping Example</a></li>
+            <li><a href="http://localhost:8080/embeddedIdResultMapping/EmployeeServlet">Embedded Id ResultSetMapping Example</a></li>
+            <li><a href="http://localhost:8080/inheritanceResultMapping/EmployeeServlet">Inheritance ResultSetMapping Example</a></li>
+            <li><a href="http://localhost:8080/constructorResultMapping/EmployeeServlet">Constructor ResultSetMapping Example</a></li>
+            <b>StoredProcedures</b>
+            <li><a href="http://localhost:8080/storedProc/EmployeeServlet">Simple Stored Procedure</a></li>
+            <b>Named Entity Graphs</b>
+            <li><a href="http://localhost:8080/namedEntityGraphBasic/EmployeeServlet">Named Entity Graph With Basic Attributes Example</a></li>
+            <li><a href="http://localhost:8080/namedEntityGraphSubgraphs/EmployeeServlet">Named Entity Graph With Subgraphs Example</a></li>
+            <li><a href="http://localhost:8080/namedEntityGraphMultipleDefs/EmployeeServlet">Named Entity Graph With Multiple Definitions for the Same Type Example</a></li>
+            <li><a href="http://localhost:8080/namedEntityGraphInheritance/EmployeeServlet">Named Entity Graph With Inheritance Example</a></li>
+            <li><a href="http://localhost:8080/namedEntityGraphRootInheritance/EmployeeServlet">Named Entity Graph With Root Inheritance Example</a></li>
+            <li><a href="http://localhost:8080/namedEntityGraphMapKey/EmployeeServlet">Named Entity Graph With Map Key Subgraph Example</a></li>
+            <b>Dynamic Entity Graphs</b>
+            <li><a href="http://localhost:8080/dynamicEntityGraphBasic/EmployeeServlet">Dynamic Entity Graph With Basic Attributes Example</a></li>
+            <li><a href="http://localhost:8080/dynamicEntityGraphSubgraphs/EmployeeServlet">Dynamic Entity Graph With Subgraphs Example</a></li>
+            <li><a href="http://localhost:8080/dynamicEntityGraphMultipleDefs/EmployeeServlet">Dynamic Entity Graph With Multiple Definitions for the Same Type Example</a></li>
+            <li><a href="http://localhost:8080/dynamicEntityGraphInheritance/EmployeeServlet">Dynamic Entity Graph With Inheritance Example</a></li>
+            <li><a href="http://localhost:8080/dynamicEntityGraphRootInheritance/EmployeeServlet">Dynamic Entity Graph With Root Inheritance Example</a></li>
+            <li><a href="http://localhost:8080/dynamicEntityGraphMapKey/EmployeeServlet">Dynamic Entity Graph With Map Key Subgraph Example</a></li>
+            <b>Managing Entity Graphs</b>
+            <li><a href="http://localhost:8080/accessingEntityGraphs/EmployeeServlet">Accessing Named Entity Graphs</a></li>
+            <li><a href="http://localhost:8080/creatingEntityGraphFromExisting/EmployeeServlet">Creating Named Entity Graph from an Existing One</a></li>
+
+        </ol>
+    </li>
+    <li><b>Chapter 12: Advanced Topics</b>
+        <ol>
+            <b>Entity Lifecycle Callbacks</b>
+            <li><a href="http://localhost:8080/lifecycleCallbacks/EmployeeServlet">Entity Lifecycle Callback Example</a></li>
+            <li><a href="http://localhost:8080/lifecycleCallbackInheritance/EmployeeServlet">Lifecycle Callback Inheritance Example</a></li>
+            <b>Validation</b>
+            <li><a href="http://localhost:8080/validatorConstraints/EmployeeServlet">Validation Constraints Example</a></li>
+            <li><a href="http://localhost:8080/validatorInjection/EmployeeServlet">Validation Injection Example</a></li>
+            <li><a href="http://localhost:8080/constraintGroups/EmployeeServlet">Constraint Groups Example</a></li>
+            <li><a href="http://localhost:8080/constraintAnnotation/EmployeeServlet">Constraint Annotation Example</a></li>
+            <li><a href="http://localhost:8080/validatingEntity/EmployeeServlet">Entity Validation Example</a></li>
+            <li><a href="http://localhost:8080/validationLifecycle/EmployeeServlet">Validation Lifecycle Example</a></li>
+            <b>Locking</b>
+            <li><a href="http://localhost:8080/entityRefresh/EmployeeServlet">Refresh Entity Example</a></li>
+            <li><a href="http://localhost:8080/entityRevert/EmployeeServlet">Revert Entity Example</a></li>
+            <li><a href="http://localhost:8080/readLocking/EmployeeServlet">Optimistic Read Locking Example</a></li>
+            <li><a href="http://localhost:8080/writeLocking/EmployeeServlet">Optimistic Write Locking Example</a></li>
+            <li><a href="http://localhost:8080/optimisticLockRecovery/EmployeeServlet">Optimistic Lock Recovery Example</a></li>
+            <li><a href="http://localhost:8080/pessWriteLocking/EmployeeServlet">Pessimistic Write Locking Example</a></li>
+            <li><a href="http://localhost:8080/cacheModeProperties/StockServlet">Cache Mode Properties Example</a></li>
+        </ol>
+    </li>
+    <li><b>Chapter 13: XML Mapping Files</b>
+        <ul>
+            <li><a href="http://localhost:8080/xmlMappings/EmployeeServlet">XML Mappings Example</a></li>
+        </ul>
+    </li>
+    <li><b>Chapter 14: Packaging and Deployment</b>
+        <ol>
+            <li><a href="http://localhost:8080/splittingFiles/EmployeeServlet">Separating Entity and Metadata into Files</a></li>
+            <li><a href="http://localhost:8080/ejbJarPackaging/EmployeeServlet">Entities Packaged in an EJB Jar</a></li>
+            <li><a href="http://localhost:8080/externalJarPackaging/EmployeeServlet">Entities Packaged in an external Jar</a></li>
+            <li><a href="http://localhost:8080/webInfClassesPackaging/EmployeeServlet">Entities Packaged in WEB-INF/classes</a></li>
+            <li><a href="http://localhost:8080/persistenceArchivePackaging/EmployeeServlet">Entities Packaged in a Persistence archive</a></li>
+            <b>Schema Generation</b>
+            <li><a href="http://localhost:8080/schemaGenCreateTarget/EmployeeServlet">Schema Generation Create Target Example</a></li>
+            <b>Schema Generation</b> (deploy example and see the generated DDL scripts at "EXAMPLES_HOME"\glassfish\domains\domain1\generated\ejb\j2ee-apps)
+            <li><a href="http://localhost:8080/schemaUniqueConstraints/EmployeeServlet">Unique Constraints Example</a>
+				(Note Derby DB requires a UNIQUE field to also be NON-NULL)</li>
+            <li><a href="http://localhost:8080/schemaUniqueConstraints2/EmployeeServlet">Unique Constraints Example 2</a>
+                (Note Derby DB requires a UNIQUE field to also be NON-NULL)</li>
+            <li><a href="http://localhost:8080/schemaNullConstraints/EmployeeServlet">Null Constraints Example</a></li>
+            <li><a href="http://localhost:8080/schemaStringBasedColumns/EmployeeServlet">String-Based Columns Example</a></li>
+            <li><a href="http://localhost:8080/schemaFloatingPointColumn/EmployeeServlet">Floating Point Columns Example</a></li>
+            <li><a href="http://localhost:8080/schemaColumnDefinition/EmployeeServlet">Column Definition Example</a></li>
+        </ol>
+    </li>
+    <li><b>Chapter 15: Testing</b>
+        <ul>
+            <li>These examples all run in Java SE and can be executed directly from the example folder.</li>
+        </ul>
+    </li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<body>
+<html>
+<head><title>Chapter 8: Query Language</title></head>
+<center><h1>Chapter 8: Query Language</h1></center
+<p>This example shows some basic JPQL queries. </br>
+   The example allows you to try the named queries shown in this 
+   chapter of the book, as well as try your own queries.</p>
+<hr/>
+
+<form action="ClientServlet" method="POST">
+    <h3>Try your own query</h3>
+    <table><tbody>
+    <tr><td><input name="query" type="submit" value="dynamic"/></td>
+	    <td><textarea name="queryString" cols=65 rows=10></textarea></tr>
+    </tbody></table>
+    <hr/>
+
+    <h3>SELECT clause examples</h3>
+    <table border="1"><tbody>
+    <tr><td><input name="query" type="submit" value="SELECT1"/></td>
+	    <td>SELECT e</br>
+		    FROM Employee e</td></tr>
+    <tr><td><input name="query" type="submit" value="SELECT2"/></td>
+	    <td>SELECT d </br>
+		    FROM Department d</td></tr>
+    <tr><td><input name="query" type="submit" value="SELECT3"/></td>
+	    <td>SELECT OBJECT(d) </br>
+		    FROM Department d</td></tr>
+    <tr><td><input name="query" type="submit" value="SELECT4"/></td>
+	    <td>SELECT e.name </br>
+		    FROM Employee e</td></tr>
+    <tr><td><input name="query" type="submit" value="SELECT5"/></td>
+	    <td>SELECT e.department </br>
+		    FROM Employee e</td></tr>
+    <tr><td><input name="query" type="submit" value="SELECT6"/></td>
+	    <td>SELECT DISTINCT e.department </br>
+		    FROM Employee e</td></tr>
+    <tr><td><input name="query" type="submit" value="SELECT7"/></td>
+	    <td>SELECT d.employees </br>
+		    FROM Department d</td></tr>
+    <tr><td><input name="query" type="submit" value="SELECT8"/></td>
+	    <td>SELECT e.name, e.salary </br>
+		    FROM Employee e</td></tr>
+    <tr><td><input name="query" type="submit" value="SELECT9"/></td>
+	    <td>SELECT NEW examples.model.EmployeeDetails(e.name, e.salary, e.department.name) </br>
+		    FROM Employee e</td></tr>
+    <tr><td><input name="query" type="submit" value="SELECT10"/></td>
+	    <td>SELECT p </br>
+		    FROM Project p </br>
+			WHERE p.employees IS NOT EMPTY</td></tr>
+    </tbody></table>
+
+    <h3>FROM clause examples</h3>
+    <table border="1"><tbody>
+    <tr><td><input name="query" type="submit" value="FROM1"/></td>
+	    <td>SELECT p </br>
+		    FROM Employee e JOIN e.phones p</td></tr>
+    <tr><td><input name="query" type="submit" value="FROM2"/></td>
+	    <td>SELECT DISTINCT p </br>
+            FROM Employee e, IN(e.phones) p</td></tr>
+    <tr><td><input name="query" type="submit" value="FROM3"/></td>
+	    <td>SELECT p.number </br>
+		    FROM Employee e JOIN e.phones p</td></tr>
+    <tr><td><input name="query" type="submit" value="FROM4"/></td>
+	    <td>SELECT d </br>
+            FROM Employee e JOIN e.department d</td></tr>
+    <tr><td><input name="query" type="submit" value="FROM5"/></td>
+	    <td>SELECT e.department </br>
+            FROM Employee e</td></tr>
+    <tr><td><input name="query" type="submit" value="FROM6"/></td>
+	    <td>SELECT DISTINCT e.department </br>
+            FROM Project p JOIN p.employees e </br>
+            WHERE p.name = 'Release1' AND e.address.state = 'CA'</td></tr>
+    <tr><td><input name="query" type="submit" value="FROM7"/></td>
+	    <td>SELECT DISTINCT d </br>
+            FROM Project p JOIN p.employees e JOIN e.department d JOIN e.address a </br>
+            WHERE p.name = 'Release1' AND a.state = 'CA'</td></tr>
+    <tr><td><input name="query" type="submit" value="FROM8"/></td>
+	    <td>SELECT DISTINCT d </br>
+            FROM Department d, Employee e </br>
+            WHERE d = e.department</td></tr>
+    <tr><td><input name="query" type="submit" value="FROM9"/></td>
+	    <td>SELECT d, m </br>
+            FROM Department d, Employee m </br>
+            WHERE d = m.department AND m.directs IS NOT EMPTY</td></tr>
+    <tr><td><input name="query" type="submit" value="FROM10"/></td>
+	    <td>SELECT DISTINCT p </br>
+            FROM Department d JOIN d.employees e JOIN e.projects p</td></tr>
+    <tr><td><input name="query" type="submit" value="FROM11"/></td>
+	    <td>SELECT e, d </br>
+            FROM Employee e LEFT JOIN e.department d</td></tr>
+    <tr><td><input name="query" type="submit" value="FROM12"/></td>
+	    <td>SELECT e </br>
+            FROM Employee e JOIN FETCH e.address</td></tr>
+    <tr><td><input name="query" type="submit" value="FROM13"/></td>
+	    <td>SELECT e, a </br>
+            FROM Employee e JOIN e.address a</td></tr>
+    <tr><td><input name="query" type="submit" value="FROM14"/></td>
+	    <td>SELECT d </br>
+            FROM Department d LEFT JOIN FETCH d.employees</td></tr>
+    <tr><td><input name="query" type="submit" value="FROM15"/></td>
+	    <td>SELECT d, e </br>
+            FROM Department d LEFT JOIN d.employees e</td></tr>
+    </tbody></table>
+	
+    <h3>WHERE clause examples</h3>
+    <table border="1"><tbody>
+    <tr><td><input name="query" type="submit" value="WHERE1"/></td>
+	    <td>SELECT e </br>
+            FROM Employee e </br>
+            WHERE e.salary BETWEEN 40000 AND 45000</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE2"/></td>
+	    <td>SELECT e </br>
+            FROM Employee e </br>
+            WHERE e.salary >= 40000 AND e.salary <= 45000</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE3"/></td>
+	    <td>SELECT d </br>
+            FROM Department d </br>
+            WHERE d.name LIKE '__Eng%'</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE4"/></td>
+	    <td>SELECT d </br>
+            FROM Department d </br>
+            WHERE d.name LIKE 'QA\_%' ESCAPE '\'</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE5"/></td>
+	    <td>SELECT e </br>
+            FROM Employee e </br>
+            WHERE e.salary = (SELECT MAX(e2.salary) </br>
+                              FROM Employee e2)</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE6"/></td>
+	    <td>SELECT e </br>
+            FROM Employee e </br>
+            WHERE EXISTS (SELECT p </br>
+                          FROM Phone p </br>
+                          WHERE p.employee = e AND p.type = 'Cell')</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE7"/></td>
+	    <td>SELECT e </br>
+            FROM Employee e </br>
+            WHERE EXISTS (SELECT p </br>
+                          FROM e.phones p </br>
+                          WHERE p.type = 'Cell')</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE8"/></td>
+	    <td>SELECT e </br>
+            FROM Employee e </br>
+            WHERE e.address.state IN ('NY', 'CA')</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE9"/></td>
+	    <td>SELECT e </br>
+            FROM Employee e </br>
+            WHERE e.department IN (SELECT DISTINCT d </br>
+            FROM Department d JOIN d.employees de JOIN de.projects p </br>
+            WHERE p.name LIKE 'QA%')</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE10"/></td>
+	    <td>SELECT p </br>
+            FROM Phone p </br>
+            WHERE p.type NOT IN ('Office', 'Home')</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE11"/></td>
+	    <td>SELECT e </br>
+            FROM Employee e </br>
+            WHERE e.directs IS NOT EMPTY</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE12"/></td>
+	    <td>SELECT m </br>
+            FROM Employee m </br>
+            WHERE (SELECT COUNT(e) </br>
+            FROM Employee e </br>
+            WHERE e.manager = m) > 0</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE13"/></td>
+	    <td>SELECT e </br>
+            FROM Employee e </br>
+            WHERE e MEMBER OF e.directs</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE14"/></td>
+	    <td>SELECT e </br>
+            FROM Employee e </br>
+            WHERE NOT EXISTS (SELECT p </br>
+            FROM e.phones p </br>
+            WHERE p.type = 'Cell')</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE15"/></td>
+	    <td>SELECT e </br>
+            FROM Employee e </br>
+            WHERE e.directs IS NOT EMPTY AND </br>
+            e.salary < ALL (SELECT d.salary </br>
+            FROM e.directs d)</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE16"/></td>
+	    <td>SELECT e </br>
+            FROM Employee e </br>
+            WHERE e.department = ANY (SELECT DISTINCT d </br>
+            FROM Department d JOIN d.employees de JOIN de.projects p </br>
+            WHERE p.name LIKE 'QA%')</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE17"/></td>
+	    <td>SELECT d </br>
+            FROM Department d </br>
+            WHERE SIZE(d.employees) = 2</td></tr>
+    <tr><td><input name="query" type="submit" value="WHERE18"/></td>
+	    <td>SELECT d </br>
+            FROM Department d </br>
+            WHERE (SELECT COUNT(e) </br>
+            FROM d.employees e) = 2</td></tr>
+    </tbody></table>
+	
+    <h3>ORDER BY examples</h3>
+    <table border="1"><tbody>
+    <tr><td><input name="query" type="submit" value="ORDERBY1"/></td>
+	    <td>SELECT e </br>
+            FROM Employee e </br>
+            ORDER BY e.name DESC</td></tr>
+    <tr><td><input name="query" type="submit" value="ORDERBY2"/></td>
+	    <td>SELECT e </br>
+            FROM Employee e JOIN e.department d </br>
+            ORDER BY d.name, e.name DESC</td></tr>
+    <tr><td><input name="query" type="submit" value="ORDERBY3"/></td>
+	    <td>SELECT e.name </br>
+            FROM Employee e </br>
+            ORDER BY e.salary DESC</td></tr>
+    </tbody></table>
+
+    <h3>Aggregate Query examples</h3>
+    <table border="1"><tbody>
+    <tr><td><input name="query" type="submit" value="Agg1"/></td>
+	    <td>SELECT AVG(e.salary) </br>
+            FROM Employee e</td></tr>
+    <tr><td><input name="query" type="submit" value="Agg2"/></td>
+	    <td>SELECT d.name, AVG(e.salary) </br>
+            FROM Department d JOIN d.employees e </br>
+            GROUP BY d.name</td></tr>
+    <tr><td><input name="query" type="submit" value="Agg3"/></td>
+	    <td>SELECT d.name, AVG(e.salary) </br>
+            FROM Department d JOIN d.employees e </br>
+            WHERE e.directs IS EMPTY </br>
+            GROUP BY d.name</td></tr>
+    <tr><td><input name="query" type="submit" value="Agg4"/></td>
+	    <td>SELECT d.name, AVG(e.salary) </br>
+            FROM Department d JOIN d.employees e </br>
+            WHERE e.directs IS EMPTY </br>
+            GROUP BY d.name </br>
+            HAVING AVG(e.salary) > 50000</td></tr>
+    <tr><td><input name="query" type="submit" value="Agg5"/></td>
+	    <td>SELECT d.name, e.salary </br>
+            FROM Department d JOIN d.employees e </br>
+            WHERE e.directs IS EMPTY</td></tr>
+    <tr><td><input name="query" type="submit" value="Agg6"/></td>
+	    <td>SELECT e, COUNT(p), COUNT(DISTINCT p.type) </br>
+            FROM Employee e JOIN e.phones p </br>
+            GROUP BY e</td></tr>
+    </tbody></table>
+
+    <h3>GROUP BY Clause examples</h3>
+    <table border="1"><tbody>
+    <tr><td><input name="query" type="submit" value="GROUPBY1"/></td>
+	    <td>SELECT d.name, COUNT(e) </br>
+            FROM Department d JOIN d.employees e </br>
+            GROUP BY d.name</td></tr>
+    <tr><td><input name="query" type="submit" value="GROUPBY2"/></td>
+	    <td>SELECT d.name, COUNT(e), AVG(e.salary) </br>
+            FROM Department d JOIN d.employees e </br>
+            GROUP BY d.name</td></tr>
+    <tr><td><input name="query" type="submit" value="GROUPBY3"/></td>
+	    <td>SELECT d.name, e.salary, COUNT(p) </br>
+            FROM Department d JOIN d.employees e JOIN e.projects p </br>
+            GROUP BY d.name, e.salary</td></tr>
+    <tr><td><input name="query" type="submit" value="GROUPBY4"/></td>
+	    <td>SELECT COUNT(e), AVG(e.salary) </br>
+            FROM Employee e</td></tr>
+    </tbody></table>
+
+    <h3>HAVING Clause example</h3>
+    <table border="1"><tbody>
+    <tr><td><input name="query" type="submit" value="HAVING"/></td>
+	    <td>SELECT e, COUNT(p) </br>
+            FROM Employee e JOIN e.projects p </br>
+            GROUP BY e </br>
+            HAVING COUNT(p) >= 2</td></tr>
+    </tbody></table>
+
+    <h3>UPDATE Query examples</h3>
+    <table border="1"><tbody>
+    <tr><td><input name="query" type="submit" value="UPDATE1"/></td>
+	    <td>UPDATE Employee e </br>
+            SET e.salary = 60000 </br>
+            WHERE e.salary = 55000</td></tr>
+    <tr><td><input name="query" type="submit" value="UPDATE2"/></td>
+	    <td>UPDATE Employee e </br>
+            SET e.salary = e.salary + 5000 </br>
+            WHERE EXISTS (SELECT p </br>
+            FROM e.projects p </br>
+            WHERE p.name = 'Release1')</td></tr>
+    <tr><td><input name="query" type="submit" value="UPDATE3"/></td>
+	    <td>UPDATE Phone p </br>
+            SET p.number = CONCAT('288', SUBSTRING(p.number, LOCATE(p.number, '-'), 4)), </br>
+                p.type = 'Business' </br>
+            WHERE p.employee.address.city = 'New York' AND p.type = 'Office'</td></tr>
+    </tbody></table>
+
+    <h3>DELETE Query example</h3>
+    <table border="1"><tbody>
+    <tr><td><input name="query" type="submit" value="DELETE"/></td>
+	    <td>DELETE FROM Employee e </br>
+            WHERE e.department IS NULL</td></tr>
+    </tbody></table>
+</form>
+
+</html>
+</body>
